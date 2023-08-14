@@ -1,0 +1,68 @@
+version: '3'
+services:
+  frontend:
+    tty: true 
+    container_name: frontend
+    image: node:16
+    ports:
+      - 3060:3000
+    volumes:
+      - ./www:/var/www
+    networks:
+      - symfony
+    depends_on:
+      - backend
+      - symfony
+    environment:
+      - WATCHPACK_POLLING=true
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 3388:3306
+    volumes:
+      - ./www:/var/www
+    networks:
+      - symfony_app
+  database:
+    container_name: database
+    image: mysql:5.7
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: Foutaise.1
+      MYSQL_DATABASE: api
+      MYSQL_USER: doloresHaze
+      MYSQL_PASSWORD: Foutaise.1
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    networks:
+      - symfony_app
+  symfony:
+    ports:
+      - 80:80
+    build:
+      context: ./symfony
+      dockerfile: Dockerfile
+    volumes:
+      - ./php.ini:/usr/local/etc/php/php.ini:ro
+      - ./www:/var/www/html
+    networks:
+      - symfony_app
+    depends_on:
+      - database
+    healthcheck:
+      test: [ "CMD", "php-fpm", "-t" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  symfony_app_var:
+  symfony_app_vendor:
+  db_app:
+networks:
+  symfony_app:
+  symfony:

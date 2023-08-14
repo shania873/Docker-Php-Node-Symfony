@@ -1,0 +1,15 @@
+{
+    "name": "cvanaerschot/backend",
+    "autoload": {
+        "psr-4": {
+            "Cvanaerschot\\Backend\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "shania873",
+            "email": "vanaeca@hotmail.com"
+        }
+    ],
+    "require": {}
+}
