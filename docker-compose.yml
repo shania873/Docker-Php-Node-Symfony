@@ -49,8 +49,6 @@ services:
       MYSQL_DATABASE: api
       MYSQL_USER: doloresHaze
       MYSQL_PASSWORD: Foutaise.1
-    volumes:
-      - ./mysql-data:/var/lib/mysql
     networks:
       - symfony_app
   symfony:
@@ -60,7 +58,6 @@ services:
       context: ./symfony
       dockerfile: Dockerfile
     volumes:
-      - ./php.ini:/usr/local/etc/php/php.ini:ro
       - ./www:/var/www/html
     networks:
       - symfony_app
