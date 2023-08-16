@@ -1,7 +1,7 @@
-version: '3'
+version: "3"
 services:
   frontend:
-    tty: true 
+    tty: true
     container_name: frontend
     image: node:16
     ports:
@@ -13,6 +13,19 @@ services:
     depends_on:
       - backend
       - symfony
+    environment:
+      - WATCHPACK_POLLING=true
+
+  firebase:
+    build:
+      context: ./firebase
+      dockerfile: Dockerfile
+    tty: true
+    container_name: firebase
+    ports:
+      - 3033:3033
+    volumes:
+      - ./www:/app
     environment:
       - WATCHPACK_POLLING=true
 
@@ -54,7 +67,7 @@ services:
     depends_on:
       - database
     healthcheck:
-      test: [ "CMD", "php-fpm", "-t" ]
+      test: ["CMD", "php-fpm", "-t"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -63,6 +76,7 @@ volumes:
   symfony_app_var:
   symfony_app_vendor:
   db_app:
+  app:
 networks:
   symfony_app:
   symfony:
