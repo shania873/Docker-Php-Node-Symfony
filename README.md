@@ -1,8 +1,3 @@
-# docker
-My Docker for to maintening mysql, php8, and symfony, (still in development )
-docker exec -it -u root 894e21d3cf95 bash
+# Docker (php8, Symfony6, composer, firebase, nodejs)
 
-    docker-compose kill
-    docker-compose down
-    docker network prune
-    docker volume prune
+Docker made for handle multiples projects in the same time.
