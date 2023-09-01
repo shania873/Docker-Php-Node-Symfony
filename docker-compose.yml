@@ -1,13 +1,37 @@
 version: "3"
 services:
-  frontend:
-    tty: true
-    container_name: frontend
-    image: node:16
+  nginx:
+    image: nginx
+    volumes:
+      - ./:/project
     ports:
-      - 3060:3000
+      - 86:86
+  node:
+    tty: true
+    container_name: node
+    image: node:18
+    ports:
+      - 8089:8089 # Port pour webpack
+      - 3000:3000 # Port pour BrowserSync
     volumes:
       - ./www:/var/www
+    networks:
+      - symfony
+    depends_on:
+      - backend
+      - symfony
+    environment:
+      - WATCHPACK_POLLING=true
+
+  angular:
+    build:
+      context: ./angular
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - 8100:8100
+    volumes:
+      - ./www:/usr/src/www
     networks:
       - symfony
     depends_on:
@@ -25,7 +49,7 @@ services:
     ports:
       - 3033:3033
     volumes:
-      - ./www:/app
+      - ./www:/www
     environment:
       - WATCHPACK_POLLING=true
 
@@ -46,7 +70,6 @@ services:
       - 3308:3306
     environment:
       MYSQL_ROOT_PASSWORD: Foutaise.1
-      MYSQL_DATABASE: api
       MYSQL_USER: doloresHaze
       MYSQL_PASSWORD: Foutaise.1
     networks:
