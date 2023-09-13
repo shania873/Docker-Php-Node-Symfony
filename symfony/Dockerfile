@@ -42,6 +42,10 @@ COPY php.conf /etc/apache2/conf-available/
 RUN a2enconf php
 RUN a2enmod rewrite
 RUN chown -R www-data:www-data /var/www/html
-EXPOSE 80
+EXPOSE 8000
+
+RUN git config --global user.email "vanaeca@hotmail.com"
+RUN git config --global user.name "shania873"
+
 
 CMD ["apache2-foreground"]
