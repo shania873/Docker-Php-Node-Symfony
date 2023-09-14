@@ -1,11 +1,11 @@
 version: "3"
 services:
-  nginx:
-    image: nginx
-    volumes:
-      - ./www:/var/www
-    ports:
-      - 86:86
+  # nginx:
+  #   image: nginx
+  #   volumes:
+  #     - ./www:/var/www
+  #   ports:
+  #     - 86:86
   node:
     tty: true
     container_name: node
@@ -19,7 +19,6 @@ services:
       - symfony
       - node_app
     depends_on:
-      - backend
       - symfony
       - database
     environment:
@@ -37,7 +36,6 @@ services:
     networks:
       - symfony
     depends_on:
-      - backend
       - symfony
     environment:
       - WATCHPACK_POLLING=true
@@ -55,16 +53,6 @@ services:
     environment:
       - WATCHPACK_POLLING=true
 
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - 3388:3306
-    volumes:
-      - ./www:/var/www
-    networks:
-      - symfony_app
   database:
     container_name: database
     image: mysql:5.7
@@ -76,7 +64,6 @@ services:
       MYSQL_PASSWORD: Foutaise.1
     networks:
       - symfony_app
-      - node_app
   symfony:
     ports:
       - 8000:8000
