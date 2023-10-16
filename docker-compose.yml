@@ -3,7 +3,9 @@ services:
   node:
     tty: true
     container_name: node
-    image: node:18
+    build:
+      context: ./node
+      dockerfile: Dockerfile
     ports:
       - 8089:8089
       - 3000:3000
