@@ -3,8 +3,6 @@ FROM php:8.1-apache
 
 WORKDIR /var/www/html
 
-COPY . .
-
 
 
 RUN apt-get update && apt-get install -y \
@@ -19,8 +17,13 @@ RUN apt-get install -y \
     unzip \
     wget \
     curl \
-    sudo
-
+    sudo \
+    python3 \
+    pip
+RUN sudo apt install python3-pip
+# Installez pip pour Python 3
+# RUN apt-get install -y python3-pip
+# RUN pip install mysql-connector-python
 
 RUN apt update \
     && apt install -y zlib1g-dev g++ git libicu-dev zip libzip-dev zip \
@@ -29,7 +32,6 @@ RUN apt update \
     && docker-php-ext-enable apcu \
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip
-
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -46,6 +48,5 @@ EXPOSE 8000
 
 RUN git config --global user.email "vanaeca@hotmail.com"
 RUN git config --global user.name "shania873"
-
 
 CMD ["apache2-foreground"]

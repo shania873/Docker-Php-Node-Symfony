@@ -59,6 +59,8 @@ services:
       MYSQL_ROOT_PASSWORD: Foutaise.1
       MYSQL_USER: doloresHaze
       MYSQL_PASSWORD: Foutaise.1
+    volumes:
+      - ./database-conf.cnf:/etc/mysql/conf.d/database-conf.cnf
     networks:
       - symfony_app
   symfony:

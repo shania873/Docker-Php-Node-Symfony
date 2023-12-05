@@ -10,6 +10,7 @@ ENV PATH $PATH:$JAVA_HOME/bin
 RUN npm install expo-cli@latest -g 
 RUN npm install -g react-native-cli
 RUN npm install @expo/ngrok@^4.1.0 --global
+RUN npm install -g nodemon
 
 EXPOSE 3000
 
