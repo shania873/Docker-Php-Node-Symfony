@@ -1,5 +1,26 @@
 version: "3"
 services:
+  # laravel:
+  #   build:
+  #     context: ./laravel
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8080:80"
+  #   volumes:
+  #     - ./www:/var/www/
+  coldfusion:
+    image: ortussolutions/commandbox
+    container_name: coldfusion
+    ports:
+      - 8080:8080
+    volumes:
+      - ./www/zenaltitudes:/app
+    networks:
+      - symfony
+    depends_on:
+      - symfony
+    environment:
+      - WATCHPACK_POLLING=true
   node:
     tty: true
     container_name: node
