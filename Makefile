@@ -27,11 +27,15 @@ ps:
 	docker-compose -f $(COMPOSE_FILE) ps
 
 # Commands to enter containers
-enter-node: 
-	docker exec -it node /bin/sh 
+enter-psiostore: 
+	docker exec -it psiostore /bin/sh 
 
 enter-angular:
 	docker exec -it angular /bin/sh
+
+
+enter-node:
+	docker exec -it node /bin/sh
 
 enter-firebase:
 	docker exec -it firebase /bin/sh
